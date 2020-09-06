@@ -1,15 +1,15 @@
 'use strict';
 
 const optionsWeek = {
-    weekday: "long",
+    weekday: "long",    
 };
 
 function countTime(deadline) {
     const paragraph = document.querySelector('.date');
 
     function getDate() {
-        const date = new Date(),
-            dayNow = date.toLocaleString('ru', optionsWeek).slice(0, 1).toUpperCase() + date.toLocaleString('ru', optionsWeek).substr(1).toLowerCase(),
+        const date = new Date(), //теккущее время и дата
+            dayNow = date.toLocaleString('ru', optionsWeek).slice(0, 1).toUpperCase() + date.toLocaleString('ru', optionsWeek).substr(1).toLowerCase(), //Первая большая,  остальные мал.
             timeNow = date.toLocaleTimeString('en'),
             dayStop = new Date(deadline),
             secondsLeft = (dayStop.getTime() - date.getTime()) / 1000,
