@@ -59,7 +59,7 @@ window.addEventListener('DOMContentLoaded', function(){
         btnMenu.addEventListener('click', handlerMenu);
 
         menu.addEventListener('click', (event) => {
-          let target = event.target;
+          let target = event.target;     //где был клик?
           if (target.classList.contains('close-btn')) {
             handlerMenu();         //тогда убираем
           } else {
@@ -112,10 +112,13 @@ window.addEventListener('DOMContentLoaded', function(){
 
       popupBtn.forEach((elem) => {
         elem.addEventListener('click', () => {
-        if (window.innerWidth > 768) {
+        
           popup.style.display = 'block';          
           animateOpen = requestAnimationFrame(animateFuncOpen);        
           popup.style.display = "block";      
+          if (window.innerWidth <= 768) {
+            cancelAnimationFrame(animateOpen);
+            popup.style.opacity = 1;           
         }
       })
     });
@@ -125,7 +128,7 @@ window.addEventListener('DOMContentLoaded', function(){
       if (target.classList.contains('popup-close')) {
         animateClose = requestAnimationFrame(animateFuncClose);     
       } else {
-        target = target.closest('.popup-content');
+        target = target.closest('.popup-content');  //возвращает ближайшего предка
         if (!target){
           animateClose = requestAnimationFrame(animateFuncClose); 
         }
@@ -155,7 +158,7 @@ window.addEventListener('DOMContentLoaded', function(){
     tabHeader.addEventListener('click', (event) => {
       let target = event.target;
 
-      target = target.closest('.service-header-tab');
+      target = target.closest('.service-header-tab');  //возвращает ближайшего предка
 
       if (target) {
         tab.forEach((item, i) => {
@@ -167,5 +170,8 @@ window.addEventListener('DOMContentLoaded', function(){
   });
 };
   tabs();
+
+  //слайдер
+  const slide = document.querySelectorAll('.portfolio-item')
 
 });
