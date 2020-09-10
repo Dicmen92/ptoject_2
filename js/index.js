@@ -279,12 +279,35 @@ window.addEventListener('DOMContentLoaded', function(){
   };
   slider();
 
-  const dataImage = () => {
-    const command = document.getElementById('command');
-    command.addEventListener('mouseenter', (event) => {
-      event.target.src = event.target.dataimg.command;
-    })
+  //"Наша команда" смена картинки
+  const dataImage = () => {    
+    const commandPhoto = document.querySelectorAll('.command__photo');   
+
+    commandPhoto.forEach((item, i) => {            
+      item.addEventListener('mouseenter', (event) => {               
+        event.target.src = event.target.dataset.img;
+        event.target.dataset.img = `images/command/command-${i + 1}.jpg`;
+      })
+    });  
+    commandPhoto.forEach((item, i) => {            
+      item.addEventListener('mouseleave', (event) => {               
+        event.target.src = event.target.dataset.img;
+        event.target.dataset.img = `images/command/command-${i + 1}a.jpg`;
+      })
+    });   
+    
   };
 dataImage();
+
+//Запрет на ввод симфолов кроме цифр
+const calc = () => {  
+  const calcBlock = document.querySelectorAll('.calc-block>input');
+    calcBlock.forEach((item) => {      
+      item.addEventListener('input', () => {
+        item.value = item.value.replace(/\D/g, '');        
+      })
+    }); 
+};
+calc();
 
 });
