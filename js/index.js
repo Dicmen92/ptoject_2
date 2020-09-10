@@ -279,4 +279,12 @@ window.addEventListener('DOMContentLoaded', function(){
   };
   slider();
 
+  const dataImage = () => {
+    const command = document.getElementById('command');
+    command.addEventListener('mouseenter', (event) => {
+      event.target.src = event.target.dataimg.command;
+    })
+  };
+dataImage();
+
 });
