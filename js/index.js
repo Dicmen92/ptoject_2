@@ -362,7 +362,7 @@ calc(100);
 const sendForm = () => {
   const errorMessage = "Что-то пошло не так...",
     loadMessage = "Загрузка...",
-    successMessage = "Спасибо, мы скоро с вами свяжимся";
+    successMessage = "Спасибо, мы скоро с вами свяжемся!";
 
   const form = document.getElementById("form1"),
         form2 = document.getElementById("form2"),
@@ -370,21 +370,19 @@ const sendForm = () => {
 
   const forms = [];
 
-  forms.push(form, form2, form3);
-
-  console.log(forms);
+  forms.push(form, form2, form3);  
 
   const statusMessage = document.createElement("div");
   //statusMessage.textContent = 'Проверка связи';
   statusMessage.style.cssText = `font-size: 2rem;
-      color: red;`;
+      color: white;`;
 
   forms.forEach((item) => {
     let input = item.querySelectorAll("input");
     [...input].forEach((elem) => {
       elem.addEventListener("input", () => {
         if (elem.classList.contains("form-phone")) {
-          elem.value = elem.value.replace(/[^\+\d]/g, "");
+          elem.value = elem.value.replace(/[^\+\d]/g, "");         
         } else if (elem.classList.contains("form-email")) {
           return;
         } else {
@@ -408,7 +406,7 @@ const sendForm = () => {
 
       postData(body, () => {
           statusMessage.textContent = successMessage;
-          if (item.id !== 'form3') {
+          if (item.id === 'form1' || item.id === 'form2'|| item.id === 'form3') {
             setTimeout(() => statusMessage.textContent = '', 2000)
           }
 
@@ -418,6 +416,7 @@ const sendForm = () => {
         },
         () => {
           statusMessage.textContent = errorMessage;
+          setTimeout(() => statusMessage.textContent = '', 4000)
         }
       );
     });
