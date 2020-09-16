@@ -404,7 +404,27 @@ const sendForm = () => {
         body[key] = val;
       });
 
-      postData(body, () => {
+      const postData = (body) => {
+
+        return new Promise((resolve, reject) => {
+          const request = new XMLHttpRequest();      
+          request.addEventListener("readystatechange", () => {
+          if (request.readyState !== 4) {
+            return;
+          }
+          if (request.status === 200) {        
+            resolve(request.responseText);
+          } else {
+            reject(request.statusText);        
+          }
+        }); 
+            request.open("POST", "./server.php");
+            request.setRequestHeader("Content-Type", "application/JSON");
+            request.send(JSON.stringify(body));    
+      });
+      };
+
+      const successSend = () => {
           statusMessage.textContent = successMessage;
           if (item.id === 'form1' || item.id === 'form2'|| item.id === 'form3') {
             setTimeout(() => statusMessage.textContent = '', 2000)
@@ -413,32 +433,17 @@ const sendForm = () => {
           input.forEach((item) => {
             item.value = "";
           });
-        },
-        () => {
+        };
+
+      const errorSend = () => {
           statusMessage.textContent = errorMessage;
           setTimeout(() => statusMessage.textContent = '', 4000)
         }
-      );
+        
+        postData(body).then(successSend).catch(errorSend);              
     });
   });
-
-  const postData = (body, outputData, errorData) => {
-    const request = new XMLHttpRequest();
-    request.addEventListener("readystatechange", () => {
-      if (request.readyState !== 4) {
-        return;
-      }
-      if (request.status === 200) {
-        outputData();
-      } else {
-        errorData(request.status);
-        alert("неполадки..");
-      }
-    });
-    request.open("POST", "./server.php");
-    request.setRequestHeader("Content-Type", "application/JSON");
-    request.send(JSON.stringify(body));
-  };
+   
 };
 sendForm();
 
