@@ -26,6 +26,8 @@ const sendForm = () => {
                   
         } else if (elem.classList.contains("form-email")) {
           return;
+        } else if (elem.classList.contains("mess")){          
+          elem.value = elem.value.replace(/[^А-Я\s,.!?;:=#$%№()-]/gi, "");
         } else {
           elem.value = elem.value.replace(/[^А-Я\s]/gi, "");
         }
